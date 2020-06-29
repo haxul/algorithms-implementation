@@ -23,18 +23,17 @@ public class SimpleSortingLinkedList {
         nodes.add(two);
         nodes.add(one);
         nodes.add(four);
-        Map<String, Node> nodeMap = nodes.stream().collect(Collectors.toMap(Node::getValue, node -> node));
-        List<Node> sorting = sorting(nodeMap, head);
+        List<Node> sorting = sorting(head);
         System.out.println(sorting);
     }
-    public static List<Node> sorting(Map<String, Node>  nodeMap, Node curNode) {
-        if (nodeMap.get(curNode.getValue()).getNextNode() == null) {
+    public static List<Node> sorting(Node node) {
+        if (node.getNextNode() == null) {
             List<Node> nodes = new LinkedList<>();
-            nodes.add(0,curNode);
+            nodes.add(0,node);
             return nodes;
         }
-        List<Node> sortedList = sorting(nodeMap, curNode.getNextNode());
-        sortedList.add(0,curNode);
+        List<Node> sortedList = sorting(node.getNextNode());
+        sortedList.add(0,node);
         return sortedList;
     }
 }
