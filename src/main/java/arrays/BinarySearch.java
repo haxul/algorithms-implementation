@@ -6,11 +6,11 @@ import java.util.stream.IntStream;
 
 public class BinarySearch {
     public static void main(String[] args) {
-        List<Integer> list = IntStream.rangeClosed(0,100).boxed().collect(Collectors.toList());
-        System.out.println(binarySearch(list, 1));
+        List<Integer> list = IntStream.rangeClosed(0,100).boxed().filter(e -> e % 2 == 0).collect(Collectors.toList());
+        System.out.println(binarySearch(list, 36));
     }
 
-    public static int binarySearch(List<Integer> list, int element) {
+    public static Integer binarySearch(List<Integer> list, int element) {
         if (list.get(list.size()/2) == element) return element;
         if (list.size() == 1 && list.get(0) != element) return -1;
         if (element > list.get(list.size() / 2)) {
