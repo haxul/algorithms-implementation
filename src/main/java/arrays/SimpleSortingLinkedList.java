@@ -6,8 +6,6 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class SimpleSortingLinkedList {
     public static void main(String[] args) {
@@ -27,13 +25,14 @@ public class SimpleSortingLinkedList {
         System.out.println(sorting);
     }
     public static List<Node> sorting(Node node) {
+        final int HEAD = 0;
         if (node.getNextNode() == null) {
             List<Node> nodes = new LinkedList<>();
-            nodes.add(0,node);
+            nodes.add(HEAD,node);
             return nodes;
         }
         List<Node> sortedList = sorting(node.getNextNode());
-        sortedList.add(0,node);
+        sortedList.add(HEAD,node);
         return sortedList;
     }
 }
