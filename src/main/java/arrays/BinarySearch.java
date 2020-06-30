@@ -6,7 +6,7 @@ import java.util.stream.IntStream;
 
 public class BinarySearch {
     public static void main(String[] args) {
-        List<Integer> list = IntStream.rangeClosed(0,100).boxed().filter(e -> e % 2 == 0).collect(Collectors.toList());
+        List<Integer> list = IntStream.rangeClosed(0,100).boxed().collect(Collectors.toList());
         System.out.println(binarySearch(list, 36));
     }
 
@@ -17,7 +17,7 @@ public class BinarySearch {
             List<Integer> right = list.stream().skip(list.size() / 2).collect(Collectors.toList());
             return binarySearch(right, element);
         }
-        List<Integer> left = list.stream().takeWhile(e -> e < list.get(list.size() / 2)).collect(Collectors.toList());
+        List<Integer> left = list.stream().limit(list.size() / 2).collect(Collectors.toList());
         return binarySearch(left, element);
     }
 }
