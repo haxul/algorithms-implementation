@@ -19,8 +19,6 @@ public class ObjectSorting {
         list.add(person3);
         list.add(person4);
 
-        System.out.println(list);
-        System.out.println(select(list));
     }
 
     private static List<Person> bubble(List<Person> list) {
