@@ -1,7 +1,5 @@
 package stakeAndQueque.stack;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Stack;
 
 public class ReverseRun {
@@ -23,9 +21,7 @@ public class ReverseRun {
             } catch (Exception e) {
                 return false;
         }
-
     }
-
         return stack.isEmpty();
 }
 
