@@ -9,10 +9,10 @@ public class Run {
         nodeList.insertFirst("hello");
         nodeList.insertFirst("world");
         nodeList.insertFirst("!!!");
-        Node hello = nodeList.findRecursion("hello");
-        System.out.println(hello);
+        nodeList.delete("world");
     }
 }
+
 @Data
 class NodeList {
     private Node head;
@@ -36,14 +36,6 @@ class NodeList {
         head = head.getNextNode();
     }
 
-    public Node displayList(Node node) {
-        if (node.getNextNode() == null) {
-            System.out.println("null");
-            return null;
-        }
-        System.out.print(node.getValue() + " ==>  ");
-        return displayList(node.getNextNode());
-    }
     public Node find(String key) {
         Node current = head;
         while (!current.getValue().equals(key)) {
@@ -56,10 +48,27 @@ class NodeList {
     public Node findRecursion(String key) {
         return loop(key, head);
     }
+
     private Node loop(String key, Node node) {
         if (node.getValue().equals(key)) return node;
         else if (node.getNextNode() == null) return null;
         else return loop(key, node.getNextNode());
+    }
+
+    public Node delete(String key) {
+        return internalDelete(key, head, null);
+    }
+
+    private Node internalDelete(String key, Node node, Node previous) {
+        if (node == null) return null;
+        if (node.getValue().equals(key) && node == head) {
+            deleteFirst();
+            return head;
+        }
+        if (node.getValue().equals(key)) {
+            previous.setNextNode(node.getNextNode());
+            return node;
+        } else return internalDelete(key, node.getNextNode(), node);
     }
 
 }
