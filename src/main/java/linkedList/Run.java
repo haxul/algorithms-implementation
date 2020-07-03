@@ -9,7 +9,8 @@ public class Run {
         nodeList.insertFirst("hello");
         nodeList.insertFirst("world");
         nodeList.insertFirst("!!!");
-        nodeList.displayList(nodeList.getHead());
+        Node hello = nodeList.findRecursion("hello");
+        System.out.println(hello);
     }
 }
 @Data
@@ -43,6 +44,24 @@ class NodeList {
         System.out.print(node.getValue() + " ==>  ");
         return displayList(node.getNextNode());
     }
+    public Node find(String key) {
+        Node current = head;
+        while (!current.getValue().equals(key)) {
+            if (current.getValue() == null) return null;
+            current = current.getNextNode();
+        }
+        return current;
+    }
+
+    public Node findRecursion(String key) {
+        return loop(key, head);
+    }
+    private Node loop(String key, Node node) {
+        if (node.getValue().equals(key)) return node;
+        else if (node.getNextNode() == null) return null;
+        else return loop(key, node.getNextNode());
+    }
+
 }
 
 
