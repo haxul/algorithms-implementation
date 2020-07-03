@@ -11,6 +11,13 @@ public class StakeBasedByLinkedList {
         stack.push("!!!");
         stack.pop();
         stack.pop();
+
+        MyQueue queue = new MyQueue();
+        queue.insert("hello");
+        queue.insert("world");
+        queue.insert("friend");
+        queue.remove();
+        queue.remove();
     }
 }
 
@@ -40,5 +47,15 @@ class MyStack implements Stackable{
     @Override
     public boolean isEmpty() {
         return storage.isEmpty();
+    }
+}
+
+class MyQueue {
+    private LinkedList<String> storage = new LinkedList<>();
+    public void insert(String element) {
+        storage.addLast(element);
+    }
+    public void remove() {
+        storage.removeFirst();
     }
 }
