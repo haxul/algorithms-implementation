@@ -1,7 +1,6 @@
 package linkedList;
 
 import java.util.LinkedList;
-import java.util.List;
 
 public class StakeBasedByLinkedList {
     public static void main(String[] args) {
@@ -23,11 +22,13 @@ public class StakeBasedByLinkedList {
 
 interface Stackable {
     void push(String element);
+
     String pop();
+
     boolean isEmpty();
 }
 
-class MyStack implements Stackable{
+class MyStack implements Stackable {
 
     private LinkedList<String> storage = new LinkedList<>();
 
@@ -52,9 +53,11 @@ class MyStack implements Stackable{
 
 class MyQueue {
     private LinkedList<String> storage = new LinkedList<>();
+
     public void insert(String element) {
         storage.addLast(element);
     }
+
     public void remove() {
         storage.removeFirst();
     }
