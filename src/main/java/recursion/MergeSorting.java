@@ -3,6 +3,8 @@ package recursion;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class MergeSorting {
     public static void main(String[] args) {
@@ -13,42 +15,56 @@ public class MergeSorting {
         left.add(111);
         left.add(1111);
         right.add(2);
-        right.add(23);
         right.add(66);
+        right.add(25);
         right.add(212);
+        right.add(28);
+        right.add(23);
         right.add(22222);
+        right.add(29);
         List<Integer> merge = new ArrayList<>();
-        mergeSorting(left, right, merge, right.size() - 1, left.size() - 1);
-
+        int[] list = new int[] {
+            11, 3, 23, 3, 1, 44, 23, 112, 100, 99
+        } ;
+        mergeSort(list, list.length);
     }
 
-//    public static List<Integer> mergeSort(List<Integer> list) {
-//        if (list.size() == 1) return list;
-//
-//
-//    }
-
-    public static List<Integer> mergeSorting(List<Integer> left, List<Integer> right, List<Integer> merge, int rightLast, int leftLast) {
-        if (left.isEmpty() && right.isEmpty()) return merge;
-        else if (left.isEmpty()) {
-            merge.add(right.get(rightLast));
-            right.remove(rightLast);
-            return mergeSorting(left, right, merge, rightLast - 1, 0);
-        } else if (right.isEmpty()) {
-            merge.add(left.get(left.size() - 1));
-            left.remove(left.size() - 1);
-            return mergeSorting(left, right, merge, 0, leftLast - 1);
-        } else if (left.get(leftLast) > right.get(rightLast)) {
-            merge.add(left.get(leftLast));
-            left.remove(leftLast);
-            return mergeSorting(left, right, merge, rightLast, leftLast - 1);
-        } else {
-            merge.add(right.get(rightLast));
-            right.remove(rightLast);
-            return mergeSorting(left, right, merge, rightLast - 1, leftLast);
+    public static void mergeSort(int[] a, int n) {
+        if (n < 2) {
+            return;
         }
+        int mid = n / 2;
+        int[] l = new int[mid];
+        int[] r = new int[n - mid];
 
+        for (int i = 0; i < mid; i++) {
+            l[i] = a[i];
+        }
+        for (int i = mid; i < n; i++) {
+            r[i - mid] = a[i];
+        }
+        mergeSort(l, mid);
+        mergeSort(r, n - mid);
 
+        merge(a, l, r, mid, n - mid);
     }
 
+    public static void merge(
+            int[] a, int[] l, int[] r, int left, int right) {
+
+        int i = 0, j = 0, k = 0;
+        while (i < left && j < right) {
+            if (l[i] <= r[j]) {
+                a[k++] = l[i++];
+            } else {
+                a[k++] = r[j++];
+            }
+        }
+        while (i < left) {
+            a[k++] = l[i++];
+        }
+        while (j < right) {
+            a[k++] = r[j++];
+        }
+    }
 }
