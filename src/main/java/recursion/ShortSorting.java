@@ -13,11 +13,13 @@ public class ShortSorting {
         }
         arr.display();
         long pivot = 99;
-        System.out.print("Pivot is " + pivot);
-        int size = arr.size();
-        int partDex = arr.partitionIt(0, size - 1, pivot);
-        System.out.println(", Partition is at index " + partDex);
+        arr.recQuickSort(0, arr.size() - 1);
+//        System.out.print("Pivot is " + pivot);
+//        int size = arr.size();
+//        int partDex = arr.partitionIt(0, size - 1, pivot);
+//        System.out.println(", Partition is at index " + partDex);
         arr.display();
+
     }
 }
 
@@ -70,5 +72,16 @@ class ArrayPar {
         temp = theArray[dex1];
         theArray[dex1] = theArray[dex2];
         theArray[dex2] = temp;
+    }
+
+    public void recQuickSort(int left, int right) {
+        if (right - left <= 0)
+            return;
+        else {
+            long pivot = theArray[right];
+            int partition = partitionIt(left, right, pivot);
+            recQuickSort(left, partition - 1);
+            recQuickSort(partition + 1, right); // Сортировка правой части
+        }
     }
 }

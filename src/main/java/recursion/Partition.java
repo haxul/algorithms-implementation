@@ -21,7 +21,7 @@ public class Partition {
         int leftIndex = 0;
         int rightIndex = list.size() - 1;
         while (true) {
-            while(list.get(leftIndex++) >= pivot) break;
+            while(list.get(leftIndex++) > pivot) break;
             while(list.get(rightIndex--) < pivot) break;
             if (leftIndex >= rightIndex) break;
             else swap(leftIndex, rightIndex, list);
