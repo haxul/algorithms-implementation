@@ -10,8 +10,10 @@ public class BinaryTreeRun {
         tree.insert( 11, "rightChild");
         tree.insert( 8, "leftChild");
         tree.insert( 7, "leftLeftChild");
-        Node node = tree.find(12);
-        System.out.println(node);
+        tree.insert( 14, "leftLeftChild");
+        tree.insert( 6, "leftLeftChild");
+        tree.symRound(tree.getRoot());
+        System.out.println("hello");
     }
 }
 
@@ -68,5 +70,12 @@ class BinaryTree {
 
         if (node.getId() < id ) return internalInsert(node.getRightChild(), id, data);
         else return internalInsert(node.getLeftChild(), id, data);
+    }
+
+    public void symRound(Node node) {
+        if (node != null) {
+            symRound(node.getLeftChild());
+            symRound(node.getRightChild());
+        }
     }
 }
