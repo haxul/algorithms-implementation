@@ -13,7 +13,8 @@ public class BinaryTreeRun {
         tree.insert( 14, "leftLeftChild");
         tree.insert( 6, "leftLeftChild");
         tree.symRound(tree.getRoot());
-        System.out.println("hello");
+        System.out.println("max :" + tree.max);
+        System.out.println("min :" + tree.min);
     }
 }
 
@@ -35,12 +36,17 @@ class Node {
 @Data
 class BinaryTree {
     private Node root;
+    public int min;
+    public int max;
+
     public BinaryTree(int id, String data) {
       root = new Node ();
       root.setId(id);
       root.setData(data);
       root.setLeftChild(null);
       root.setRightChild(null);
+      min = root.getId();
+      max = root.getId();
     }
     public Node find(int key) {
         return internalFind(key, root);
@@ -74,6 +80,8 @@ class BinaryTree {
 
     public void symRound(Node node) {
         if (node != null) {
+            if (node.getId() < min) min = node.getId();
+            if (node.getId() > max) max = node.getId();
             symRound(node.getLeftChild());
             symRound(node.getRightChild());
         }
