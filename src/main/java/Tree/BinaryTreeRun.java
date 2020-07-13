@@ -7,14 +7,14 @@ import lombok.NoArgsConstructor;
 public class BinaryTreeRun {
     public static void main(String[] args) {
         BinaryTree tree = new BinaryTree(10, "root");
-        tree.insert( 11, "rightChild");
-        tree.insert( 8, "leftChild");
-        tree.insert( 7, "leftLeftChild");
-        tree.insert( 14, "leftLeftChild");
-        tree.insert( 6, "leftLeftChild");
+        tree.insert(12, "leftLeftChild");
+        tree.insert(11, "rightChild");
+        tree.insert(8, "leftChild");
+        tree.insert(7, "leftLeftChild");
+        tree.insert(14, "leftLeftChild");
         tree.symRound(tree.getRoot());
-        System.out.println("max :" + tree.max);
-        System.out.println("min :" + tree.min);
+        tree.delete(14, null, tree.getRoot());
+        System.out.println(tree);
     }
 }
 
@@ -23,10 +23,11 @@ public class BinaryTreeRun {
 @AllArgsConstructor
 @NoArgsConstructor
 class Node {
-    public Node (int id, String data) {
+    public Node(int id, String data) {
         this.id = id;
         this.data = data;
     }
+
     int id;
     String data;
     Node leftChild;
@@ -40,29 +41,42 @@ class BinaryTree {
     public int max;
 
     public BinaryTree(int id, String data) {
-      root = new Node ();
-      root.setId(id);
-      root.setData(data);
-      root.setLeftChild(null);
-      root.setRightChild(null);
-      min = root.getId();
-      max = root.getId();
+        root = new Node();
+        root.setId(id);
+        root.setData(data);
+        root.setLeftChild(null);
+        root.setRightChild(null);
+        min = root.getId();
+        max = root.getId();
     }
+
+    public void delete(int id, Node parent, Node node) {
+        if (node.getRightChild() == null && node.getLeftChild() == null && node.getId() == id) {
+            if (parent.getLeftChild() == node) parent.setLeftChild(null);
+            if (parent.getRightChild() == node) parent.setRightChild(null);
+        } else {
+            if (node.getRightChild() != null) delete(id, node, node.getRightChild());
+            if (node.getLeftChild() != null) delete(id, node, node.getLeftChild());
+        }
+    }
+
     public Node find(int key) {
         return internalFind(key, root);
     }
-    private  Node internalFind(int key, Node node) {
+
+    private Node internalFind(int key, Node node) {
         if (node.getId() == key) return node;
         if (node.getLeftChild() == null && node.getRightChild() == null) return null;
         if (key > node.getId()) return internalFind(key, node.getRightChild());
         else return internalFind(key, node.getLeftChild());
     }
+
     public Node insert(int id, String data) {
         return internalInsert(root, id, data);
     }
 
     private Node internalInsert(Node node, int id, String data) {
-        if (node.getId() < id  && node.getRightChild() == null) {
+        if (node.getId() < id && node.getRightChild() == null) {
             Node child = new Node(id, data);
             node.setRightChild(child);
             return child;
@@ -74,7 +88,7 @@ class BinaryTree {
             return child;
         }
 
-        if (node.getId() < id ) return internalInsert(node.getRightChild(), id, data);
+        if (node.getId() < id) return internalInsert(node.getRightChild(), id, data);
         else return internalInsert(node.getLeftChild(), id, data);
     }
 
