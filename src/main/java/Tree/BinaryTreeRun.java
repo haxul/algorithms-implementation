@@ -10,10 +10,11 @@ public class BinaryTreeRun {
         tree.insert(12, "leftLeftChild");
         tree.insert(11, "rightChild");
         tree.insert(8, "leftChild");
+        tree.insert(9, "leftChild");
         tree.insert(7, "leftLeftChild");
-        tree.insert(14, "leftLeftChild");
+//        tree.insert(14, "leftLeftChild");
         tree.symRound(tree.getRoot());
-        tree.delete(14, null, tree.getRoot());
+        tree.delete(12, null, tree.getRoot());
         System.out.println(tree);
     }
 }
@@ -54,6 +55,12 @@ class BinaryTree {
         if (node.getRightChild() == null && node.getLeftChild() == null && node.getId() == id) {
             if (parent.getLeftChild() == node) parent.setLeftChild(null);
             if (parent.getRightChild() == node) parent.setRightChild(null);
+        } else if (node.getLeftChild() != null && node.getRightChild() == null && node.getId() == id) {
+            if (parent.getRightChild() == node) parent.setRightChild(node.getLeftChild());
+            if (parent.getLeftChild() == node) parent.setLeftChild(node.getLeftChild());
+        } else if (node.getLeftChild() == null && node.getRightChild() != null && node.getId() == id) {
+            if (parent.getRightChild() == node) parent.setRightChild(node.getRightChild());
+            if (parent.getLeftChild() == node) parent.setLeftChild(node.getRightChild());
         } else {
             if (node.getRightChild() != null) delete(id, node, node.getRightChild());
             if (node.getLeftChild() != null) delete(id, node, node.getLeftChild());
