@@ -67,6 +67,22 @@ class BinaryTree {
         }
     }
 
+    private Node getSuccessor(Node delNode) {
+        Node successorParent = delNode;
+        Node successor = delNode;
+        Node current = delNode.rightChild;
+        while (current != null) {
+            successorParent = successor;
+            successor = current;
+            current = current.leftChild;
+        }
+        if (successor != delNode.rightChild) {
+            successorParent.leftChild = successor.rightChild;
+            successor.rightChild = delNode.rightChild;
+        }
+        return successor;
+    }
+
     public Node find(int key) {
         return internalFind(key, root);
     }
