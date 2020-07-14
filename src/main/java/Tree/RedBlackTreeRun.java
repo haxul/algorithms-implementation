@@ -5,3 +5,8 @@ public class RedBlackTreeRun {
 
     }
 }
+
+
+class RedBlackTree {
+
+}
