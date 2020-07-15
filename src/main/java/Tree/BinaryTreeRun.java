@@ -23,26 +23,26 @@ public class BinaryTreeRun {
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-class Node {
-    public Node(int id, String data) {
+class NodeB {
+    public NodeB(int id, String data) {
         this.id = id;
         this.data = data;
     }
 
     int id;
     String data;
-    Node leftChild;
-    Node rightChild;
+    NodeB leftChild;
+    NodeB rightChild;
 }
 
 @Data
 class BinaryTree {
-    private Node root;
+    private NodeB root;
     public int min;
     public int max;
 
     public BinaryTree(int id, String data) {
-        root = new Node();
+        root = new NodeB();
         root.setId(id);
         root.setData(data);
         root.setLeftChild(null);
@@ -51,76 +51,76 @@ class BinaryTree {
         max = root.getId();
     }
 
-    public void delete(int id, Node parent, Node node) {
-        if (node.getRightChild() == null && node.getLeftChild() == null && node.getId() == id) {
-            if (parent.getLeftChild() == node) parent.setLeftChild(null);
-            if (parent.getRightChild() == node) parent.setRightChild(null);
-        } else if (node.getLeftChild() != null && node.getRightChild() == null && node.getId() == id) {
-            if (parent.getRightChild() == node) parent.setRightChild(node.getLeftChild());
-            if (parent.getLeftChild() == node) parent.setLeftChild(node.getLeftChild());
-        } else if (node.getLeftChild() == null && node.getRightChild() != null && node.getId() == id) {
-            if (parent.getRightChild() == node) parent.setRightChild(node.getRightChild());
-            if (parent.getLeftChild() == node) parent.setLeftChild(node.getRightChild());
+    public void delete(int id, NodeB parent, NodeB nodeB) {
+        if (nodeB.getRightChild() == null && nodeB.getLeftChild() == null && nodeB.getId() == id) {
+            if (parent.getLeftChild() == nodeB) parent.setLeftChild(null);
+            if (parent.getRightChild() == nodeB) parent.setRightChild(null);
+        } else if (nodeB.getLeftChild() != null && nodeB.getRightChild() == null && nodeB.getId() == id) {
+            if (parent.getRightChild() == nodeB) parent.setRightChild(nodeB.getLeftChild());
+            if (parent.getLeftChild() == nodeB) parent.setLeftChild(nodeB.getLeftChild());
+        } else if (nodeB.getLeftChild() == null && nodeB.getRightChild() != null && nodeB.getId() == id) {
+            if (parent.getRightChild() == nodeB) parent.setRightChild(nodeB.getRightChild());
+            if (parent.getLeftChild() == nodeB) parent.setLeftChild(nodeB.getRightChild());
         } else {
-            if (node.getRightChild() != null) delete(id, node, node.getRightChild());
-            if (node.getLeftChild() != null) delete(id, node, node.getLeftChild());
+            if (nodeB.getRightChild() != null) delete(id, nodeB, nodeB.getRightChild());
+            if (nodeB.getLeftChild() != null) delete(id, nodeB, nodeB.getLeftChild());
         }
     }
 
-    private Node getSuccessor(Node delNode) {
-        Node successorParent = delNode;
-        Node successor = delNode;
-        Node current = delNode.rightChild;
+    private NodeB getSuccessor(NodeB delNodeB) {
+        NodeB successorParent = delNodeB;
+        NodeB successor = delNodeB;
+        NodeB current = delNodeB.rightChild;
         while (current != null) {
             successorParent = successor;
             successor = current;
             current = current.leftChild;
         }
-        if (successor != delNode.rightChild) {
+        if (successor != delNodeB.rightChild) {
             successorParent.leftChild = successor.rightChild;
-            successor.rightChild = delNode.rightChild;
+            successor.rightChild = delNodeB.rightChild;
         }
         return successor;
     }
 
-    public Node find(int key) {
+    public NodeB find(int key) {
         return internalFind(key, root);
     }
 
-    private Node internalFind(int key, Node node) {
-        if (node.getId() == key) return node;
-        if (node.getLeftChild() == null && node.getRightChild() == null) return null;
-        if (key > node.getId()) return internalFind(key, node.getRightChild());
-        else return internalFind(key, node.getLeftChild());
+    private NodeB internalFind(int key, NodeB nodeB) {
+        if (nodeB.getId() == key) return nodeB;
+        if (nodeB.getLeftChild() == null && nodeB.getRightChild() == null) return null;
+        if (key > nodeB.getId()) return internalFind(key, nodeB.getRightChild());
+        else return internalFind(key, nodeB.getLeftChild());
     }
 
-    public Node insert(int id, String data) {
+    public NodeB insert(int id, String data) {
         return internalInsert(root, id, data);
     }
 
-    private Node internalInsert(Node node, int id, String data) {
-        if (node.getId() < id && node.getRightChild() == null) {
-            Node child = new Node(id, data);
-            node.setRightChild(child);
+    private NodeB internalInsert(NodeB nodeB, int id, String data) {
+        if (nodeB.getId() < id && nodeB.getRightChild() == null) {
+            NodeB child = new NodeB(id, data);
+            nodeB.setRightChild(child);
             return child;
         }
 
-        if (node.getId() > id && node.getLeftChild() == null) {
-            Node child = new Node(id, data);
-            node.setLeftChild(child);
+        if (nodeB.getId() > id && nodeB.getLeftChild() == null) {
+            NodeB child = new NodeB(id, data);
+            nodeB.setLeftChild(child);
             return child;
         }
 
-        if (node.getId() < id) return internalInsert(node.getRightChild(), id, data);
-        else return internalInsert(node.getLeftChild(), id, data);
+        if (nodeB.getId() < id) return internalInsert(nodeB.getRightChild(), id, data);
+        else return internalInsert(nodeB.getLeftChild(), id, data);
     }
 
-    public void symRound(Node node) {
-        if (node != null) {
-            if (node.getId() < min) min = node.getId();
-            if (node.getId() > max) max = node.getId();
-            symRound(node.getLeftChild());
-            symRound(node.getRightChild());
+    public void symRound(NodeB nodeB) {
+        if (nodeB != null) {
+            if (nodeB.getId() < min) min = nodeB.getId();
+            if (nodeB.getId() > max) max = nodeB.getId();
+            symRound(nodeB.getLeftChild());
+            symRound(nodeB.getRightChild());
         }
     }
 }
