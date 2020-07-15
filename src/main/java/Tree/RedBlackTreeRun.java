@@ -7,7 +7,7 @@ public class RedBlackTreeRun {
         tree.insert(11);
         tree.insert(12);
         tree.insert(13);
-
+        tree.printTree();
     }
 }
 
