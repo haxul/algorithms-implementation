@@ -1,33 +1,59 @@
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.Iterator;
+
 public class HashTableRun {
     public static void main(String[] args) {
+        HashTable table = new HashTable();
+        table.insert(new Item(10, "hello"));
+        table.insert(new Item(11, "hello"));
+        table.insert(new Item(1123, "hello"));
+        table.insert(new Item(188, "hello"));
+        table.insert(new Item(10423432, "hello"));
+        Item item = table.find(1123);
+
     }
 }
 
 
 @Data
-@AllArgsConstructor
 class Item {
+    public Item(int key, String name) {
+        this.key = key;
+        this.name = name;
+    }
+
     private int key;
     private String name;
 }
 
 
 class HashTable {
-    Item[] array = new Item[30];
+    private Item[] array = new Item[30];
 
     private int hashFunc(int key) {
         return key % array.length;
     }
 
-    public Item insert(Item item) {
+    public int insert(Item item) {
         int index = hashFunc(item.getKey());
-        while (array[index] != null && array[index].getKey() != -1 ) {
+        while (array[index] != null && array[index].getKey() != -1) {
             ++index;
             index %= array.length;
         }
         array[index] = item;
+        return index;
+    }
+
+    public Item find(int key) {
+        int hashVal = hashFunc(key);
+        while (array[hashVal] != null) {
+            if (array[hashVal].getKey() == key)
+                return array[hashVal];
+            ++hashVal;
+            hashVal %= array.length;
+        }
+        return null;
     }
 }
