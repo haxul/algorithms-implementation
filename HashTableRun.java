@@ -11,6 +11,7 @@ public class HashTableRun {
         table.insert(new Item(1123, "hello"));
         table.insert(new Item(188, "hello"));
         table.insert(new Item(10423432, "hello"));
+        table.delete(1123);
         Item item = table.find(1123);
 
     }
@@ -51,6 +52,19 @@ class HashTable {
         while (array[hashVal] != null) {
             if (array[hashVal].getKey() == key)
                 return array[hashVal];
+            ++hashVal;
+            hashVal %= array.length;
+        }
+        return null;
+    }
+
+    public Item delete(int key) {
+        int hashVal = hashFunc(key);
+        while (array[hashVal] != null) {
+            if (array[hashVal].getKey() == key) {
+                array[hashVal].setKey(-1);
+                return array[hashVal];
+            }
             ++hashVal;
             hashVal %= array.length;
         }
