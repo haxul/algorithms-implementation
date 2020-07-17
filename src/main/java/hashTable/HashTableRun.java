@@ -92,7 +92,6 @@ class HashTableChain {
     public Item find(int key) {
         int index = hashFunc(key);
         if (array[index] == null) return null;
-        if (array[index].isEmpty()) return null;
         for (var item : array[index]) {
             if (item.getKey() == key) return item;
         }
@@ -106,3 +105,4 @@ class HashTableChain {
         array[index].removeIf(item -> item.getKey() == key);
     }
 }
+
