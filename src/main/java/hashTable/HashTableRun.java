@@ -1,7 +1,6 @@
-import lombok.AllArgsConstructor;
-import lombok.Data;
+package hashTable;
 
-import java.util.Iterator;
+import lombok.Data;
 
 public class HashTableRun {
     public static void main(String[] args) {
