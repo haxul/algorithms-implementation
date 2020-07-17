@@ -2,16 +2,15 @@ package hashTable;
 
 import lombok.Data;
 
+import java.util.LinkedList;
+
 public class HashTableRun {
     public static void main(String[] args) {
-        HashTable table = new HashTable();
-        table.insert(new Item(10, "hello"));
-        table.insert(new Item(11, "hello"));
-        table.insert(new Item(1123, "hello"));
-        table.insert(new Item(188, "hello"));
-        table.insert(new Item(10423432, "hello"));
-        table.delete(1123);
-        Item item = table.find(1123);
+        HashTableChain tableChain = new HashTableChain();
+        tableChain.insert(new Item(12, "hello"));
+        tableChain.insert(new Item(13, "!!!"));
+        tableChain.insert(new Item(14, "world"));
+        tableChain.insert(new Item(12, "world"));
 
     }
 }
@@ -29,7 +28,7 @@ class Item {
 }
 
 
-class HashTable {
+class HashTableLinearProbation {
     private Item[] array = new Item[30];
 
     private int hashFunc(int key) {
@@ -68,5 +67,42 @@ class HashTable {
             hashVal %= array.length;
         }
         return null;
+    }
+}
+
+class HashTableChain {
+    private LinkedList<Item>[] array = new LinkedList[30];
+
+    private int hashFunc(int key) {
+        return key % array.length;
+    }
+
+    public void insert(Item item) {
+        int index = hashFunc(item.getKey());
+        if (array[index] == null) {
+            LinkedList<Item> list = new LinkedList<>();
+            array[index] = list;
+        }
+        array[index].forEach(i -> {
+            if (i.getKey() == item.getKey()) array[index].remove(i);
+        });
+        array[index].push(item);
+    }
+
+    public Item find(int key) {
+        int index = hashFunc(key);
+        if (array[index] == null) return null;
+        if (array[index].isEmpty()) return null;
+        for (var item : array[index]) {
+            if (item.getKey() == key) return item;
+        }
+        return null;
+    }
+
+    public void delete(int key) {
+        int index = hashFunc(key);
+        if (array[index] == null) return;
+        if (array[index].isEmpty()) return;
+        array[index].removeIf(item -> item.getKey() == key);
     }
 }
