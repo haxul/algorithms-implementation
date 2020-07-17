@@ -70,3 +70,40 @@ class HashTable {
         return null;
     }
 }
+
+
+class HashTableChain {
+    private LinkedList<Item>[] array = new LinkedList[30];
+
+    private int hashFunc(int key) {
+        return key % array.length;
+    }
+
+    public void insert(Item item) {
+        int index = hashFunc(item.getKey());
+        if (array[index] == null) {
+            LinkedList<Item> list = new LinkedList<>();
+            array[index] = list;
+        }
+        array[index].forEach(i -> {
+            if (i.getKey() == item.getKey()) array[index].remove(i);
+        });
+        array[index].push(item);
+    }
+
+    public Item find(int key) {
+        int index = hashFunc(key);
+        if (array[index] == null) return null;
+        for (var item : array[index]) {
+            if (item.getKey() == key) return item;
+        }
+        return null;
+    }
+     
+    public void delete(int key) {
+        int index = hashFunc(key);
+        if (array[index] == null) return;
+        array[index].removeIf(item -> item.getKey() == key);
+    }
+}
+
