@@ -3,6 +3,8 @@ package graphs;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.Stack;
+
 public class GraphRun {
     public static void main(String[] args) {
 
@@ -52,5 +54,22 @@ class Graph {
         return -1;
     }
 
+    public void dfs() {
+        vertexList[0].setWasVisited(true);
+        Stack<Integer> stack = new Stack<>();
+        stack.push(0);
+        while (!stack.isEmpty()) {
+            int v = getAdjUnvisitedVertex(stack.peek());
+            if (v == -1) stack.pop();
+            else  {
+                vertexList[v].setWasVisited(true);
+                stack.push(v);
+            }
+        }
+
+        for (var vertex : vertexList) {
+            vertex.setWasVisited(false);
+        }
+    }
 
 }
