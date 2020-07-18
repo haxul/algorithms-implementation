@@ -5,14 +5,18 @@ import lombok.Data;
 
 public class GraphRun {
     public static void main(String[] args) {
-        
+
     }
 }
 
 @AllArgsConstructor
 @Data
 class Vertex {
+    public Vertex (String name) {
+        this.name = name;
+    }
     private String name;
+    private boolean wasVisited;
 }
 
 class Graph {
@@ -21,7 +25,7 @@ class Graph {
     private int[][] adjMatx;
     private int nVertex;
 
-    public Graph () {
+    public Graph() {
         vertexList = new Vertex[MAX_VERTEX];
         adjMatx = new int[MAX_VERTEX][MAX_VERTEX];
         nVertex = 0;
@@ -40,4 +44,13 @@ class Graph {
         adjMatx[start][end] = 1;
         adjMatx[end][start] = 1;
     }
+
+    public int getAdjUnvisitedVertex(int v) {
+        for (int j = 0; j < nVertex; j++)
+            if (adjMatx[v][j] == 1 && vertexList[j].isWasVisited() == false)
+                return j;
+        return -1;
+    }
+
+
 }
