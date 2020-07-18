@@ -2,23 +2,46 @@ package graphs;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Stack;
 
 public class GraphRun {
     public static void main(String[] args) {
+        Graph graph = new Graph();
+        graph.addVertex("A"); // 0
+        graph.addVertex("B"); // 1
+        graph.addVertex("C"); // 2
+        graph.addVertex("D"); // 3
+        graph.addVertex("E"); // 4
 
+        graph.addEdge(0, 1);
+        graph.addEdge(1, 2);
+        graph.addEdge(0, 3);
+        graph.addEdge(3, 4);
+
+        graph.dfs();
     }
 }
 
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 class Vertex {
-    public Vertex (String name) {
+    public Vertex(String name) {
         this.name = name;
     }
+
     private String name;
     private boolean wasVisited;
+
+    @Override
+    public String toString() {
+        return "Vertex{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
 
 class Graph {
@@ -55,20 +78,22 @@ class Graph {
     }
 
     public void dfs() {
-        vertexList[0].setWasVisited(true);
         Stack<Integer> stack = new Stack<>();
+        vertexList[0].setWasVisited(true);
+        System.out.println(vertexList[0]);
         stack.push(0);
         while (!stack.isEmpty()) {
             int v = getAdjUnvisitedVertex(stack.peek());
             if (v == -1) stack.pop();
-            else  {
+            else {
                 vertexList[v].setWasVisited(true);
+                System.out.println(vertexList[v]);
                 stack.push(v);
             }
         }
 
         for (var vertex : vertexList) {
-            vertex.setWasVisited(false);
+            if (vertex != null) vertex.setWasVisited(false);
         }
     }
 
