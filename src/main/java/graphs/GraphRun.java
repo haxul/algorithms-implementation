@@ -96,5 +96,25 @@ class Graph {
             if (vertex != null) vertex.setWasVisited(false);
         }
     }
+    
+    public void bfs() {
+        Queue<Integer> queue = new LinkedList<>();
+        vertexList[0].setWasVisited(true);
+        System.out.println(vertexList[0]);
+        queue.add(0);
+        int v2;
+        while( !queue.isEmpty() )
+        {
+            int v1 = queue.remove();
+            while( (v2=getAdjUnvisitedVertex(v1)) != -1 )
+            {
+                vertexList[v2].setWasVisited(true);
+                System.out.println(vertexList[v2]);
+                queue.add(v2);
+            }
+        }
+        for(int j=0; j<nVertex; j++)
+            vertexList[j].setWasVisited(false);
+    }
 
 }
