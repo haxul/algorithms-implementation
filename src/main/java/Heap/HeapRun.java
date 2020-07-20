@@ -42,7 +42,7 @@ class Heap {
                 heapArray[parent].getKey() < bottom.getKey()) {
             heapArray[index] = heapArray[parent];
             index = parent;
-            parent = (parent - 1) / 2; 
+            parent = (parent - 1) / 2;
         }
         heapArray[index] = bottom;
     }
